@@ -1,8 +1,18 @@
-const express = require('express');
+import express from "express";
+import { config } from "dotenv";
+
+import routers from "./routers/index.js";
+
 const app = express();
 
-app.listen(5000, (req, res, next) => { console.log("App started on port: 5000")})
+app.use(express.json());
 
-app.get('/', (req, res, next) => {
-    res.send("<h1>MainPage</h1>")
-})
+config({
+  path: "./config/env/config.env",
+});
+
+app.listen(process.env.PORT, () => {
+  console.log("App started on port: " + process.env.PORT);
+});
+
+app.use("/api", routers);
