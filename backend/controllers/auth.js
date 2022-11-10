@@ -1,5 +1,9 @@
 import UserModel from "../models/User.js";
 import asyncErrorWrapper from "express-async-handler";
+import {
+  validateUserInput,
+  comparePassword,
+} from "../helpers/input/inputHelpers.js";
 
 const register = asyncErrorWrapper(async (req, res, next) => {
   const information = req.body;
@@ -12,7 +16,19 @@ const register = asyncErrorWrapper(async (req, res, next) => {
 });
 
 const login = asyncErrorWrapper(async (req, res, next) => {
-  // login
+  const { email, password } = req.body;
+
+  if (!validateUserInput) {
+    return next(new CustomError("Please check your inputs", 400));
+  }
+
+  const user = await UserModel.findOne({ email }).select("+password");
+
+  if (!comparePassword(password, user.password)) {
+    return next(new CustomError("Please check your credentials", 400));
+  }
+
+  sendJwtToClient();
 });
 
 export { register, login };

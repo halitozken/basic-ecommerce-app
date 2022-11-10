@@ -11,10 +11,7 @@ const getAllUsers = asyncErrorWrapper(async (req, res, next) => {
 });
 
 const editUser = asyncErrorWrapper(async (req, res, next) => {
-  const { id } = req.params;
-  const user = await UserModel.findById(id);
-
-  const information = req.body;
+  // edit user
 });
 
 export { getAllUsers, editUser };
