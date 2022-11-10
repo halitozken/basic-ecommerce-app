@@ -1,17 +1,20 @@
-import User from "../models/User.js";
+import UserModel from "../models/User.js";
 import asyncErrorWrapper from "express-async-handler";
 
-const addUser = asyncErrorWrapper(async (req, res, next) => {
-  const { information } = req.body;
-
-  const user = await User.create({
-    ...information,
-  });
+const getAllUsers = asyncErrorWrapper(async (req, res, next) => {
+  const users = await UserModel.find();
 
   return res.status(200).json({
     success: true,
-    data: user,
+    data: users,
   });
 });
 
-export default addUser;
+const editUser = asyncErrorWrapper(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await UserModel.findById(id);
+
+  const information = req.body;
+});
+
+export { getAllUsers, editUser };

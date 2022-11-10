@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
@@ -35,8 +36,14 @@ const UserSchema = new Schema({
     enum: "Male" || "Female",
   },
 
-  place: {
+  city: {
     type: String,
+    required: [true, "Please provide a city"],
+  },
+
+  country: {
+    type: String,
+    required: [true, "Please provide a country"],
   },
 
   address: {
@@ -49,11 +56,27 @@ const UserSchema = new Schema({
     default: false,
   },
 
+  order: [{}],
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
+UserSchema.pre("save", function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) next(err);
+      this.password = hash;
+      next();
+    });
+  });
+});
+
 const UserModel = mongoose.model("User", UserSchema);
-module.exports = UserModel;
+export default UserModel;
