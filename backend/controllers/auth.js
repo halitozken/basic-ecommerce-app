@@ -28,7 +28,7 @@ const login = asyncErrorWrapper(async (req, res, next) => {
     return next(new CustomError("Please check your credentials", 400));
   }
 
-  sendJwtToClient();
+  sendJwtToClient(user, res);
 });
 
 export { register, login };
