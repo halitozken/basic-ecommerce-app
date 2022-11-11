@@ -1,6 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 
+import customErrorHandler from "./middlewares/errors/CustomErrorHandler.js";
 import connectDatabase from "./helpers/database/connectDatabase.js";
 import routers from "./routers/index.js";
 
@@ -19,5 +20,5 @@ app.listen(process.env.PORT, () => {
 });
 
 app.use(express.json());
-
 app.use("/api", routers);
+app.use(customErrorHandler);

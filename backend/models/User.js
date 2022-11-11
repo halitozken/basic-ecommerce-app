@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const Schema = mongoose.Schema;
 
@@ -33,7 +34,7 @@ const UserSchema = new Schema({
 
   gender: {
     type: String,
-    enum: "Male" || "Female",
+    enum: ["Male", "Female"],
   },
 
   city: {
@@ -70,6 +71,7 @@ UserSchema.methods.generateJwtFromUser = function () {
   const payload = {
     id: this._id,
     name: this.name,
+    lastName: this.lastName,
   };
 
   const token = jwt.sign(payload, JWT_SECRET_KEY, {
