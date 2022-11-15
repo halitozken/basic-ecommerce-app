@@ -14,4 +14,14 @@ const editUser = asyncErrorWrapper(async (req, res, next) => {
   // edit user
 });
 
-export { getAllUsers, editUser };
+const deleteUser = asyncErrorWrapper(async (req, res, next) => {
+  const id = req.params;
+  const user = await UserModel.findByIdAndDelete(id);
+
+  return res.status(200).json({
+    success: true,
+    message: "User deleted successfully",
+  });
+});
+
+export { getAllUsers, editUser, deleteUser };

@@ -57,7 +57,7 @@ const UserSchema = new Schema({
     default: false,
   },
 
-  order: [{}],
+  order: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
 
   createdAt: {
     type: Date,
