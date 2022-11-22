@@ -3,10 +3,18 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 
   products: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "Products", required: true },
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
   ],
 
   createdAt: Date,
@@ -14,5 +22,5 @@ const OrderSchema = new Schema({
   updateAt: Date,
 });
 
-const OrderModel = mongoose.model("Order", OrderSchema);
-export default OrderModel;
+export default mongoose.model("Order", OrderSchema);
+

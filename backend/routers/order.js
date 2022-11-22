@@ -1,9 +1,10 @@
 import express from "express";
-import { createOrder, deleteOrder } from "../controllers/order.js";
+import { createOrder, deleteOrder, editOrder } from "../controllers/order.js";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.get("/create/:id", createOrder);
-router.delete("/delete/:id", deleteOrder);
+router.get("/", createOrder);
+router.delete("/:order_id/delete", deleteOrder);
+router.put("/:order_id/edit", editOrder);
 
 export default router;

@@ -13,10 +13,10 @@ const ProductSchema = new Schema({
 
   categoryId: {
     type: String,
-    ref: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-    },
+    // ref: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Category",
+    // },
   },
 
   unitPrice: {
@@ -32,5 +32,5 @@ const ProductSchema = new Schema({
   },
 });
 
-const ProductModel = mongoose.model("Product", ProductSchema);
-export default ProductModel;
+export default mongoose.model("Product", ProductSchema);
+
