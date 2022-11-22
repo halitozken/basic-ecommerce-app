@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
   id: {
-    type: "Number",
+    type: Number,
   },
 
   productName: {
@@ -12,7 +12,7 @@ const ProductSchema = new Schema({
   },
 
   categoryId: {
-    type: String,
+    type: Number,
     // ref: {
     //   type: mongoose.Schema.Types.ObjectId,
     //   ref: "Category",
@@ -20,7 +20,7 @@ const ProductSchema = new Schema({
   },
 
   unitPrice: {
-    type: String,
+    type: Number,
   },
 
   quantityPerUnit: {
@@ -28,9 +28,9 @@ const ProductSchema = new Schema({
   },
 
   unitsInStock: {
-    type: String,
+    type: Number,
   },
 });
 
-export default mongoose.model("Product", ProductSchema);
-
+const ProductModel = mongoose.model("Product", ProductSchema);
+export default ProductModel;

@@ -1,8 +1,24 @@
 import asyncErrorWrapper from "express-async-handler";
-import Product from "../models/Product.js";
+import ProductModel from "../models/Product.js";
 
-const addProduct = asyncErrorWrapper(async (req, res, next) => {
-  const information = req.body;
+const addSingleProduct = asyncErrorWrapper(async (req, res, next) => {
+  const { information } = req.body;
+  const product = await ProductModel.create({ ...information });
+
+  return res.status(200).json({
+    success: true,
+    data: product,
+  });
 });
 
-export default addProduct;
+const addProductList = asyncErrorWrapper(async (req, res, next) => {
+  const information = req.body;
+  const product = await ProductModel.insertMany(information);
+
+  return res.status(200).json({
+    success: true,
+    data: product,
+  });
+});
+
+export { addSingleProduct, addProductList };
