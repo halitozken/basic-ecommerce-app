@@ -1,20 +1,18 @@
 import asyncErrorWrapper from "express-async-handler";
 import OrderModel from "../models/Order.js";
+import UserModel from "../models/User.js";
 
 const createOrder = asyncErrorWrapper(async (req, res, next) => {
-  const user_id = req.user.id;
-  const product = req.body;
+  // create Order and push order to array in user
+  const userId = req.user.id;
+  const user = await UserModel.findById(userId);
 
+  const { product } = req.body; //! it can be array
+  // id ye göre ekle (objectId)
   const order = await OrderModel.create({
-    owner: user_id,
+    owner: userId,
     product,
   });
-
-  return res.status(200).json({
-    success: true,
-    data: order,
-  });
-
 });
 
 const deleteOrder = asyncErrorWrapper(async (req, res, next) => {
