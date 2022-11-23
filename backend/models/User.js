@@ -24,7 +24,6 @@ const UserSchema = new Schema({
       "please provide a valid email",
     ],
   },
-
   password: {
     type: String,
     minLength: [6, "Please provide a password with min length 6"],

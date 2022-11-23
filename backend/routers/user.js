@@ -7,6 +7,6 @@ router.get("/all", getAllUsers);
 router.put("/edit/:id", editUser);
 router.delete("/delete/:id", deleteUser);
 
-router.use("/:user_id/orders", order);
+router.use("/:user_id/order", order);
 
 export default router;

@@ -3,15 +3,18 @@ import OrderModel from "../models/Order.js";
 import UserModel from "../models/User.js";
 
 const createOrder = asyncErrorWrapper(async (req, res, next) => {
-  // create Order and push order to array in user
-  const userId = req.user.id;
-  const user = await UserModel.findById(userId);
-
-  const { product } = req.body; //! it can be array
-  // id ye göre ekle (objectId)
+  const { user_id } = req.params;
+  const { products, status, amount } = req.body;
   const order = await OrderModel.create({
-    owner: userId,
-    product,
+    owner: user_id,
+    products,
+    status,
+    amount,
+  });
+
+  return res.status(200).json({
+    success: true,
+    data: order,
   });
 });
 

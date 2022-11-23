@@ -11,11 +11,26 @@ const OrderSchema = new Schema({
 
   products: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-      required: true,
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
     },
   ],
+
+  status: {
+    type: String,
+    required: true,
+  },
+
+  amount: {
+    type: String,
+    required: true,
+  },
 
   createdAt: Date,
 

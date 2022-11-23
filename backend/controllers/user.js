@@ -11,7 +11,19 @@ const getAllUsers = asyncErrorWrapper(async (req, res, next) => {
 });
 
 const editUser = asyncErrorWrapper(async (req, res, next) => {
-  // edit user
+  const id = req.params;
+  const updateUser = await UserModel.findByIdAndUpdate(
+    id,
+    {
+      $set: req.body,
+    },
+    { new: true }
+  );
+
+  return res.status(200).json({
+    success: true,
+    data: updateUser,
+  });
 });
 
 const deleteUser = asyncErrorWrapper(async (req, res, next) => {
