@@ -19,11 +19,23 @@ const createOrder = asyncErrorWrapper(async (req, res, next) => {
 });
 
 const deleteOrder = asyncErrorWrapper(async (req, res, next) => {
-  // Delete a order
+  const { user_id } = req.params;
+  const order = await OrderModel.findByIdAndDelete(id);
+
+  return res.status(200).json({
+    success: true,
+    message: "Order deleted successfully",
+  });
 });
 
 const editOrder = asyncErrorWrapper(async (req, res, next) => {
-  // Edit a order
+  const { user_id } = req.params;
+  const order = await OrderModel.findByIdAndUpdate(id);
+
+  return res.status(200).json({
+    success: true,
+    data: order,
+  });
 });
 
 export { createOrder, deleteOrder, editOrder };

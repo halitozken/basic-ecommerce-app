@@ -4,65 +4,63 @@ import jwt from "jsonwebtoken";
 
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: [true, "Please provide a name"],
-  },
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Please provide a name"],
+    },
 
-  lastName: {
-    type: String,
-    required: [true, "Please provide a last name"],
-  },
+    lastName: {
+      type: String,
+      required: [true, "Please provide a last name"],
+    },
 
-  email: {
-    type: String,
-    required: [true, "Please provide a email"],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "please provide a valid email",
-    ],
-  },
-  password: {
-    type: String,
-    minLength: [6, "Please provide a password with min length 6"],
-    required: [true, "Please provide a password"],
-    select: false,
-  },
+    email: {
+      type: String,
+      required: [true, "Please provide a email"],
+      unique: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "please provide a valid email",
+      ],
+    },
+    password: {
+      type: String,
+      minLength: [6, "Please provide a password with min length 6"],
+      required: [true, "Please provide a password"],
+      select: false,
+    },
 
-  gender: {
-    type: String,
-    enum: ["Male", "Female"],
-  },
+    gender: {
+      type: String,
+      enum: ["Male", "Female"],
+    },
 
-  city: {
-    type: String,
-    required: [true, "Please provide a city"],
-  },
+    city: {
+      type: String,
+      required: [true, "Please provide a city"],
+    },
 
-  country: {
-    type: String,
-    required: [true, "Please provide a country"],
-  },
+    country: {
+      type: String,
+      required: [true, "Please provide a country"],
+    },
 
-  address: {
-    type: String,
-    minLength: [25, "Please provide a password with min length 6"],
-  },
+    address: {
+      type: String,
+      minLength: [25, "Please provide a password with min length 6"],
+    },
 
-  blocked: {
-    type: Boolean,
-    default: false,
-  },
+    blocked: {
+      type: Boolean,
+      default: false,
+    },
 
-  order: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
-
-  createdAt: {
-    type: Date,
-    default: Date.now,
+    order: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
   },
-});
+  { timestamps: true }
+);
 
 UserSchema.methods.generateJwtFromUser = function () {
   const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
